@@ -291,9 +291,6 @@ const [change, setChange] = useState(false);
           <div className="w-full mx-auto text-left w-full md:text-center">
         
         <div className="flex">
-        <h1 className="mb-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-3xl md:tracking-tight">
-              <span className="text-white">Profile</span>
-            </h1>
         {msg == "success" && (
                       <div className="text-center mx-auto">
                       <div className="">
@@ -325,7 +322,7 @@ const [change, setChange] = useState(false);
                     >
                       <div className="lg:flex md:flex justify-between">
                         <div className="flex items-center lg:justify-start md:justify-start justify-center mb-40 ml-10">
-                          <div className="rounded-2xl h-36 w-36 ring-1 ring-black bg-gray-200">
+                          <div className="rounded-2xl h-52 w-52 ring-1 ring-black bg-gray-200">
                             {formData.profilePictureUrl ? (
                               <img
                                 alt="alt"
@@ -333,8 +330,8 @@ const [change, setChange] = useState(false);
                                   formData.profilePictureUrl
                                 )}`}
                                 className="rounded-2xl"
-                                width="170"
-                                height="170"
+                                // width="170"
+                                // height="170"
                               />
                             ) : (
                               <label
@@ -426,10 +423,9 @@ const [change, setChange] = useState(false);
                           <div className="text-center pt-10 w-1/2">
                         <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
                           <button
-                            style={button}
                             type="submit"
                             value="submit"
-                            className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                            className="bg-blue-500 px-14 py-3 mb-2 text-lg text-white font-semibold rounded-lg w-full sm:mb-0"
                           >
                             Set Your Profile
                           </button>
@@ -488,30 +484,6 @@ const [change, setChange] = useState(false);
 
             {profileset && (
               <>
-              {
-                !auth && loggedin && (
-                  <>
-                  <div className="flex -mt-6">
-                      <div className="rounded-full px-2 text-center font-bold mb-2" style={{backgroundColor:'#11D9C5'}}>1</div>
-                    <div style={{color: '#11D9C5'}}>--------------------</div>
-                    <div className="rounded-full px-2 text-center font-bold mb-2" style={{backgroundColor:'#788AA3'}}>2</div>
-              </div>
-              <div className="flex text-left w-1/3 mb-2">
-                    <div className="w-1/2">
-                      <div className="text-white">Connect Wallet</div>
-                    </div>
-                  <div className="pl-10">
-                    <div style={{color: '#788AA3'}}>Sign up with google</div>
-                    <div style={{color: '#11D9C5'}} className="text-xs"><button onClick={async () => {
-  await handleLoginClick();
-  setchange(true);
-}}>(Complete Step 2 to get access to write reviews
-“Click Here”)</button></div>
-                  </div>
-              </div>
-              </>
-                )
-              }
 
                 <section className="pb-0 rounded-xl" style={bg}>
                   <h1 className="pt-8 pl-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
@@ -524,19 +496,19 @@ const [change, setChange] = useState(false);
                           <div className="lg:w-1/4 md:w-1/4">
                             <div className="flex items-center mb-10 justify-center">
                               {profileData?.profilePictureUrl ? (
-                                <div className="rounded-2xl h-36 w-36">
+                                <div className="rounded-2xl h-52 w-52">
                                 <img
                                   alt="alt"
                                   src={`${"https://cloudflare-ipfs.com/ipfs"}/${removePrefix(
                                     profileData?.profilePictureUrl
                                   )}`}
                                   className="rounded-2xl"
-                                  width="170"
-                                  height="170"
+                                //   width="170"
+                                //   height="170"
                                 />
                                 </div>
                               ) : (
-                                <div className="rounded-2xl h-36 w-36 ring-offset-2 ring-1 ring-black bg-gray-200">
+                                <div className="rounded-2xl h-52 w-52 ring-offset-2 ring-1 ring-black bg-gray-200">
                                   {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
                                   {/* <Image
                                     alt="alt"
@@ -607,9 +579,8 @@ const [change, setChange] = useState(false);
                         <div className="text-center pt-0 w-3/4 ml-auto pb-48">
                           <div className="">
                             <button
-                              style={button}
                               onClick={() => setprofileset(false)}
-                              className="px-14 py-3 mb-2 text-lg text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                              className="bg-blue-500 px-14 py-3 mb-2 text-lg text-white font-semibold rounded-lg w-full sm:mb-0"
                             >
                               Edit Profile
                             </button>
