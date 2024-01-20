@@ -308,11 +308,12 @@ const [change, setChange] = useState(false);
             
 
             {!profileset && (
-              <section className="pb-10 rounded-xl" style={bg}>
-                <div className="px-20 mx-auto rounded-xl">
-                  <div className="w-full mx-auto text-left py-10">
+              <section className="rounded-xl bg-gray-100 min-h-screen">
+                <div className="py-3"></div>
+                <div className="px-20 mx-auto rounded-xl w-1/2 bg-white pt-20">
+                  <div className="mx-auto text-left">
                     <h1 className="text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
-                      <span className="text-white">Set Your Profile</span>
+                      <span className="text-black">Set Your Profile</span>
                     </h1>
 
                     <form
@@ -321,8 +322,8 @@ const [change, setChange] = useState(false);
                       onSubmit={handleSubmit}
                     >
                       <div className="lg:flex md:flex justify-between">
-                        <div className="flex items-center lg:justify-start md:justify-start justify-center mb-40 ml-10">
-                          <div className="h-52 w-52 ring-1 ring-black bg-gray-200">
+                        <div className="flex items-center lg:justify-start md:justify-start justify-center mb-60">
+                          <div className="h-32 w-32 ring-1 ring-black bg-gray-200">
                             {formData.profilePictureUrl ? (
                               <img
                                 alt="alt"
@@ -365,11 +366,11 @@ const [change, setChange] = useState(false);
 
                         <div className="mb-10 lg:w-3/4 md:w-3/4 mt-10">
                           <div className="lg:flex md:flex justify-between gap-4">
-                            <div className="mb-10 w-1/2">
+                            <div className="mb-10 w-full">
                               <input
                                 type="text"
                                 id="name"
-                                style={border}
+                                // style={border}
                                 className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Your Name"
                                 value={formData.name}
@@ -378,18 +379,7 @@ const [change, setChange] = useState(false);
                               />
                             </div>
 
-                            <div className="mb-10 w-1/2">
-                              <input
-                                type="text"
-                                id="country"
-                                style={border}
-                                className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Country"
-                                value={formData.country}
-                                onChange={handleInputChange}
-                                // required
-                              />
-                            </div>
+                            
                           </div>
 
                           <div className="lg:flex md:flex justify-between gap-4">
@@ -397,20 +387,20 @@ const [change, setChange] = useState(false);
                               <input
                                 type="text"
                                 id="discord"
-                                style={border}
+                                // style={border}
                                 className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Discord"
+                                placeholder="Instagram"
                                 value={formData.discord}
                                 onChange={handleInputChange}
                                 // required
                               />
                             </div>
 
-                            <div className="mb-0 w-1/2">
+                            <div className="mb-10 w-1/2">
                               <input
                                 type="text"
                                 id="twitter"
-                                style={border}
+                                // style={border}
                                 className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Twitter"
                                 value={formData.twitter}
@@ -420,12 +410,33 @@ const [change, setChange] = useState(false);
                             </div>
                           </div>
 
-                          <div className="text-center pt-10 w-1/2">
+                          <div className="mb-10 w-full">
+                              <input
+                                type="text"
+                                id="country"
+                                // style={border}
+                                className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Bio"
+                                value={formData.country}
+                                onChange={handleInputChange}
+                                // required
+                              />
+                            </div>
+
+                          <div className="text-center pt-10 w-2/3 mr-auto flex gap-4">
+                          <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
+                          <button
+                            onClick={() => setprofileset(true)}
+                            className="border border-blue-500 px-4 py-3 mb-2 text-sm text-blue-500 font-semibold rounded-lg w-full sm:mb-0"
+                          >
+                            Cancel
+                          </button>
+                        </div>
                         <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
                           <button
                             type="submit"
                             value="submit"
-                            className="bg-blue-500 px-14 py-3 mb-2 text-lg text-white font-semibold rounded-lg w-full sm:mb-0"
+                            className="bg-blue-500 px-4 py-3 mb-2 text-sm text-white font-semibold rounded-lg w-full sm:mb-0"
                           >
                             Set Your Profile
                           </button>
@@ -485,7 +496,7 @@ const [change, setChange] = useState(false);
             {profileset && (
               <>
 
-                <section className="pb-0 rounded-xl" style={bg}> 
+                <section className="pb-0 rounded-xl"> 
                 <img src="/bg7.webp" className="w-full h-80"/>                 
                   <div className="px-24 mx-auto rounded-xl">
                     <div className="w-full mx-auto text-left">
@@ -570,9 +581,9 @@ const [change, setChange] = useState(false);
                                 // style={border}
                                 className="text-black text-md mb-2"
                               >
-                                Discord : {profileData?.discord
+                                Instagram : {profileData?.discord
                                   ? profileData?.discord
-                                  : "Discord Link"}
+                                  : "Instagram Link"}
                               </div>
 
                               <div
