@@ -287,7 +287,7 @@ const [change, setChange] = useState(false);
       
     >
       <section className="">
-        <div className="px-10 mx-auto">
+        <div className="mx-auto">
           <div className="w-full mx-auto text-left w-full md:text-center">
         
         <div className="flex">
@@ -322,7 +322,7 @@ const [change, setChange] = useState(false);
                     >
                       <div className="lg:flex md:flex justify-between">
                         <div className="flex items-center lg:justify-start md:justify-start justify-center mb-40 ml-10">
-                          <div className="rounded-2xl h-52 w-52 ring-1 ring-black bg-gray-200">
+                          <div className="h-52 w-52 ring-1 ring-black bg-gray-200">
                             {formData.profilePictureUrl ? (
                               <img
                                 alt="alt"
@@ -485,10 +485,8 @@ const [change, setChange] = useState(false);
             {profileset && (
               <>
 
-                <section className="pb-0 rounded-xl" style={bg}>
-                  <h1 className="pt-8 pl-8 text-start text-4xl font-semibold leading-none tracking-normal text-gray-100 md:text-2xl md:tracking-tight">
-                    <span className="text-white">Basic information</span>
-                  </h1>
+                <section className="pb-0 rounded-xl" style={bg}> 
+                <img src="/bg7.webp" className="w-full h-80"/>                 
                   <div className="px-24 mx-auto rounded-xl">
                     <div className="w-full mx-auto text-left">
                       <form id="myForm" className="rounded pt-10">
@@ -496,7 +494,7 @@ const [change, setChange] = useState(false);
                           <div className="lg:w-1/4 md:w-1/4">
                             <div className="flex items-center mb-10 justify-center">
                               {profileData?.profilePictureUrl ? (
-                                <div className="rounded-2xl h-52 w-52">
+                                <div className="h-52 w-52">
                                 <img
                                   alt="alt"
                                   src={`${"https://cloudflare-ipfs.com/ipfs"}/${removePrefix(
@@ -508,7 +506,7 @@ const [change, setChange] = useState(false);
                                 />
                                 </div>
                               ) : (
-                                <div className="rounded-2xl h-52 w-52 ring-offset-2 ring-1 ring-black bg-gray-200">
+                                <div className="h-52 w-52 ring-offset-2 ring-1 ring-black bg-gray-200">
                                   {/* <FaUserCircle className="text-3xl text-gray-500 w-48 h-48" /> */}
                                   {/* <Image
                                     alt="alt"
@@ -525,13 +523,24 @@ const [change, setChange] = useState(false);
                           <div className="lg:w-3/4 md:w-3/4">
                             <div className="lg:flex md:flex justify-between gap-4">
                               <div
-                                style={border}
-                                className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                                // style={border}
+                                className="text-black text-2xl font-bold mb-10"
                               >
                                 {profileData?.name
                                   ? profileData?.name
                                   : "Name"}
                               </div>
+
+                              <div className="text-center pt-0 ml-auto">
+                          <div className="">
+                            <button
+                              onClick={() => setprofileset(false)}
+                              className="bg-blue-500 px-4 py-3 mb-2 text-sm text-white font-semibold rounded-lg w-full sm:mb-0"
+                            >
+                              Edit Profile
+                            </button>
+                          </div>
+                        </div>
 
                               {/* <div
                                 style={border}
@@ -545,8 +554,8 @@ const [change, setChange] = useState(false);
 
                             <div className="lg:flex md:flex justify-between gap-4">
                               <div
-                                style={border}
-                                className="mb-10 shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                                // style={border}
+                                className="text-black text-lg mb-10"
                               >
                                 {profileData?.name
                                   ? profileData?.name
@@ -554,38 +563,31 @@ const [change, setChange] = useState(false);
                               </div>
                             </div>
 
-                            <div className="lg:flex md:flex justify-between gap-4">
+                            <div className="font-bold mb-2">Social Handles</div>
+
+                            {/* <div className="lg:flex md:flex justify-between gap-4"> */}
                               <div
-                                style={border}
-                                className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight"
+                                // style={border}
+                                className="text-black text-md mb-2"
                               >
-                                {profileData?.discord
+                                Discord : {profileData?.discord
                                   ? profileData?.discord
-                                  : "Discord"}
+                                  : "Discord Link"}
                               </div>
 
                               <div
-                                style={border}
-                                className="mb-10 lg:w-1/2 md:w-1/2 rounded w-full py-4 px-3 text-gray-200 leading-tight"
+                                // style={border}
+                                className="text-black text-md mb-10"
                               >
-                                {profileData?.twitter
+                                Twitter : {profileData?.twitter
                                   ? profileData?.twitter
-                                  : "Twitter"}
+                                  : "Twitter Link"}
                               </div>
-                            </div>
+                            {/* </div> */}
                           </div>
                         </div>
 
-                        <div className="text-center pt-0 w-3/4 ml-auto pb-48">
-                          <div className="">
-                            <button
-                              onClick={() => setprofileset(false)}
-                              className="bg-blue-500 px-14 py-3 mb-2 text-lg text-white font-semibold rounded-lg w-full sm:mb-0"
-                            >
-                              Edit Profile
-                            </button>
-                          </div>
-                        </div>
+                        
                       </form>
 
       {loading && (
