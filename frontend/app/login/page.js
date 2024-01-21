@@ -6,6 +6,7 @@ import { removePrefix } from "../../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
 import Image from 'next/image';
 import Header from '../../components/header';
+import { ConnectKitButton } from "connectkit";
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL;
@@ -14,7 +15,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
 const [profileset, setprofileset] = useState(true);
 const [profileData, setProfileData] = useState(null);
-const [msg, setMsg] = useState("");
+const [msg, setMsg] = useState("success");
 const [auth, setAuth] = useState(true);
 const [loggedin, setLoggedin] = useState(false);
 const [change, setChange] = useState(false);
@@ -274,13 +275,13 @@ const [change, setChange] = useState(false);
       handleConnectWallet();
     }, [change]);
 
-    useEffect(() => {
-      const timeoutId = setTimeout(() => {
-        setMsg('');
-      }, 3000); // 5 seconds in milliseconds
+    // useEffect(() => {
+    //   const timeoutId = setTimeout(() => {
+    //     setMsg('');
+    //   }, 3000); // 5 seconds in milliseconds
   
-      return () => clearTimeout(timeoutId);
-    }, [msg]);
+    //   return () => clearTimeout(timeoutId);
+    // }, [msg]);
   
 
   return (
@@ -293,17 +294,29 @@ const [change, setChange] = useState(false);
         
         <div className="flex">
         {msg == "success" && (
-                      <div className="text-center mx-auto">
-                      <div className="">
-                        <div
-                          style={button}
-                          className="flex gap-1 px-4 py-3 text-xs text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
-                        >
-                          {/* <Image src={tick} alt="" className="w-4 h-4"/> */}
-                          Changes Saved
-                        </div>
+                      <div style={{backgroundColor:'#2229447A'}} className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full" id="popupmodal">
+                      <div className="relative p-4 lg:w-1/3 w-full max-w-2xl max-h-full">
+                          <div className="relative rounded-lg shadow bg-white">
+                              <div className="flex items-center justify-end p-4 md:p-5 rounded-t dark:border-gray-600">
+                                  
+                              </div>
+                  
+                              <img src="/emojiMessage.png" alt="info" className="mx-auto"/>
+                  
+                              <div className="p-4 md:p-5 space-y-4">
+                              <p className="text-3xl text-center font-bold">
+                              Profile Successfully Set 
+                                  </p>
+                                  <p className="text-md text-center">
+                                  Connect your wallet to complete login process.
+                                  </p>
+                              </div>
+                              <div className="flex items-center p-4 md:p-5 rounded-b mx-auto justify-center">
+                              <ConnectKitButton/>
+                                </div>
+                          </div>          
                       </div>
-                    </div>
+                  </div>
             )}
         </div>
             
