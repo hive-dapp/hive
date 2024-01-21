@@ -32,9 +32,9 @@ export default function Header() {
                 Login
               </a>
             </li>
-            <li>
+            {/* <li>
               <ConnectKitButton />
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
