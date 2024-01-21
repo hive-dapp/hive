@@ -7,6 +7,35 @@ import { NFTStorage } from "nft.storage";
 import Image from "next/image";
 import Header from "../../components/header";
 const REACT_APP_GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL;
+import { Nft } from "../../components/abi/Nft.js";
+import { Token } from "../../components/abi/Token.js";
+import { BrowserProvider } from "ethers";
+
+//web3modal
+import Web3Modal from "web3modal";
+import { ethers } from "ethers";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+const etherContract = async (contractAddress, abi) => {
+  const options = new WalletConnectProvider({
+    rpc: {
+      137: "https://eth-sepolia.g.alchemy.com/v2/awVRjx6xE-B13CviFzuXd2hZBv-gg-pg",
+    },
+    rpcUrl:
+      "https://eth-sepolia.g.alchemy.com/v2/awVRjx6xE-B13CviFzuXd2hZBv-gg-pg",
+  });
+  const web3Modal = new Web3Modal({
+    network: "sepolia",
+    package: WalletConnectProvider,
+    options: options,
+    cacheProvider: true,
+  });
+  const connection = await web3Modal.connect();
+  //const provider = new ethers.provider.Web3Provider(connection);
+  const browserProvider = new BrowserProvider(window.ethereum);
+  const signer = await browserProvider.getSigner();
+  // const signer = provider.getSigner();
+  return new ethers.Contract(contractAddress, abi, signer);
+};
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -133,7 +162,47 @@ const Profile = () => {
     setMsg("");
     setprofileset(true);
   };
+  async function MintNft(e) {
+    //approve
+    const TokenContract = await etherContract(
+      "0xC62962745280e1d543772CBbdC1D135D61dB0fF2",
+      Token
+    );
 
+    // setmodel(true);
+    try {
+      // const options = {
+      //   value: ethers.BigNumber.from(nft.price).mul(quantity),
+      // };
+      const transaction = await TokenContract.approve(
+        "0x8063E4BA4b473DDdAc016dF9765EB869fcFAf843",
+        "1000000000000000000"
+      );
+      console.log("1st", transaction);
+      await transaction.wait();
+      // setmodel(false);
+    } catch (e) {
+      console.log(e?.data?.message);
+      console.error(e);
+    }
+
+    //mint
+    const NftContract = await etherContract(
+      "0x2AeD5D2433ffad4947cD4A42E874463863a4FA07",
+      Nft
+    );
+
+    // setmodel(true);
+    try {
+      const transaction = await NftContract.safeMint();
+      console.log("2nd", transaction);
+      await transaction.wait();
+      // setmodel(false);
+    } catch (e) {
+      console.log(e?.data?.message);
+      console.error(e);
+    }
+  }
   return (
     <div>
       <Header />
@@ -190,7 +259,13 @@ const Profile = () => {
                     </p>
                   </div>
                   <div className="flex items-center p-4 md:p-5 rounded-b mx-auto justify-center mb-4">
-                    <button className=" bg-blue-500 px-4 py-2 rounded-lg text-white font-bold">
+                    <button
+                      className=" bg-blue-500 px-4 py-2 rounded-lg text-white font-bold"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        MintNft(e);
+                      }}
+                    >
                       Mint User NFT
                     </button>
                   </div>
