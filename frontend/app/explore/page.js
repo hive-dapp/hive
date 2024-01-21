@@ -13,7 +13,39 @@ const Explore = () => {
     <div 
     >
       <Header />
+<div className="max-w-6xl mx-auto mt-10 grid grid-cols-3 gap-2">
 
+      <div className="border p-4 rounded-lg">
+        <img src="/bg.avif"/>
+<div className="mt-2">Name: </div>
+<div>Reputation Score: </div>
+      </div>
+
+      <div className="border p-4 rounded-lg">
+      <img src="/bg2.jpeg"/>
+      <div className="mt-2">Name: </div>
+<div>Reputation Score: </div>
+      </div>
+
+      <div className="border p-4 rounded-lg">
+      <img src="/bg4.avif"/>
+      <div className="mt-2">Name: </div>
+<div>Reputation Score: </div>
+      </div>
+
+      <div className="border p-4 rounded-lg">
+      <img src="/bg5.png"/>
+      <div className="mt-2">Name: </div>
+<div>Reputation Score: </div>
+      </div>
+
+      <div className="border p-4 rounded-lg">
+      <img src="/bg6.jpeg"/>
+      <div className="mt-2">Name: </div>
+<div>Reputation Score: </div>
+      </div>
+
+      </div>
      </div> 
   );
 };
