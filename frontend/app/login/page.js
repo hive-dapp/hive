@@ -16,13 +16,6 @@ const Profile = () => {
 const [profileset, setprofileset] = useState(true);
 const [profileData, setProfileData] = useState(null);
 const [msg, setMsg] = useState("success");
-const [auth, setAuth] = useState(true);
-const [loggedin, setLoggedin] = useState(false);
-const [change, setChange] = useState(false);
-
-  const navigate = (path) => {
-    window.location.href = path;
-  };
 
   const bg = {
     backgroundColor: "#FFFFFF2A",
@@ -31,18 +24,6 @@ const [change, setChange] = useState(false);
   const border = {
     backgroundColor: "white",
     border: "1px solid #788AA3",
-  };
-
-  const button = {
-    backgroundColor: "#11D9C5",
-  };
-
-  const bgverify = {
-    backgroundColor: "#141a31",
-  };
-
-  const text = {
-    color: "#788AA3",
   };
 
   const initialFormData = {
@@ -130,150 +111,6 @@ const [change, setChange] = useState(false);
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      setLoading(true);
-      try {
-        const auth = Cookies.get("platform_token");
-
-        const response = await axios.get(
-          `${REACT_APP_GATEWAY_URL}api/v1.0/profile`,
-          {
-            headers: {
-              Accept: "application/json, text/plain, */*",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${auth}`,
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          setProfileData(response.data.payload);
-          if(!response.data.payload.email)
-          {
-            setauth(false);
-          }
-          console.log(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfileData();
-  }, [profileset]);
-
-  const gotodashboard = async () => {
-    navigate("/view-my-reviews");
-  };
-
-  const handleProfile = () => {
-    setMsg("");
-    setprofileset(true);
-  };
-
-
-  const handleLoginClick = () => {
-    const state = Math.random().toString(36).substring(7);
-    const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=openid%20profile%20email&state=${state}`;
-    window.location.href = authUrl;
-  };
-
-  const parseAuthorizationCode = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-  
-    if (code) {
-      localStorage.setItem("code",code)
-      exchangeCodeForToken(code);
-      console.log("code", code)
-    }
-  };
-  
-  const exchangeCodeForToken = async (code) => {
-    const tokenEndpoint = 'https://www.googleapis.com/oauth2/v4/token';
-  
-    const tokenRequestBody = {
-      code,
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      redirect_uri: REDIRECT_URI,
-      grant_type: 'authorization_code',
-    };
-  
-    try {
-      const response = await fetch(tokenEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(tokenRequestBody).toString(),
-      });
-  
-      const tokenData = await response.json();
-  
-      // Assuming id_token is present in tokenData
-      const idToken = tokenData.id_token;
-  
-      // setpage("googlewalletboth");
-
-      // Use idToken in another API call
-      await getgoogledata(idToken);
-  
-      handleTokenData(tokenData);
-      console.log("token", tokenData);
-    } catch (error) {
-      console.error('Token exchange error:', error);
-    }
-  };
-  
-  const getgoogledata = async (idToken) => {
-  
-    const auth = Cookies.get("platform_token");
-  
-    const obj = {"idToken":idToken}
-    const jsonData = JSON.stringify(obj);
-  
-    try {
-      const response = await axios.post(`${REACT_APP_GATEWAY_URL}api/v1.0/account/auth-google`, {
-       ...obj
-      },{headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth}`,
-      }});
-  
-      const responseData = await response.data;
-      // Cookies.set("google_token", responseData.payload.token, { expires: 7 });
-      // Cookies.set("platform_userid", responseData.payload.userId, { expires: 7 });
-      console.log('Another API call response:', responseData);
-    } catch (error) {
-      console.error('Another API call error:', error);
-    }
-  };
-  
-  const handleTokenData = (tokenData) => {
-    window.history.replaceState({}, document.title, window.location.pathname);
-  };
-  
-  
-  useEffect(() => {
-    parseAuthorizationCode();
-  }, []);
-
-  useEffect(() => {
-      const handleConnectWallet = async () => {
-        const loggedin = Cookies.get("platform_token");
-        // const auth = Cookies.get("google_token");
-        if (loggedin) {
-          setloggedin(true);
-        }
-      };
-      handleConnectWallet();
-    }, [change]);
 
     // useEffect(() => {
     //   const timeoutId = setTimeout(() => {
