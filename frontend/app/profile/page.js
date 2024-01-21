@@ -46,6 +46,7 @@ const Profile = () => {
   const [loggedin, setLoggedin] = useState(false);
   const [change, setChange] = useState(false);
   const [nftMinting, setNftMinting] = useState();
+  const [nftMinted, setNftMinted] = useState();
 
   const navigate = (path) => {
     window.location.href = path;
@@ -202,6 +203,8 @@ const Profile = () => {
       console.log(e?.data?.message);
       console.error(e);
     }
+    setNftMinting(false);
+    setNftMinted(true);
   }
   return (
     <div>
@@ -268,6 +271,42 @@ const Profile = () => {
                     >
                       Mint User NFT
                     </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            {nftMinted == true && (
+              <div
+                style={{ backgroundColor: "#2229447A" }}
+                className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full"
+                id="popupmodal"
+              >
+                <div className="relative flex justify-center flex-col items-center p-4 lg:w-2/3 w-full bg-white  rounded-lg shadow h-2/3  ">
+                  <button
+                    onClick={() => {
+                      setNftMinted(false);
+                    }}
+                    className="absolute top-4 right-4 text-gray-500 cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                  <div className="p-4 md:p-5 space-y-4">
+                    <p className="text-3xl text-center font-bold">
+                      NFT Minted Successfully
+                    </p>
                   </div>
                 </div>
               </div>
