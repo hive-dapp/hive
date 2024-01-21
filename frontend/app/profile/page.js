@@ -1,23 +1,22 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
 import axios from "axios";
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { removePrefix } from "../../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
-import Image from 'next/image';
-import Header from '../../components/header';
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
-const client = new NFTStorage({ token: API_KEY });
+import Image from "next/image";
+import Header from "../../components/header";
 const REACT_APP_GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL;
 
 const Profile = () => {
   const [loading, setLoading] = useState(false);
-const [profileset, setprofileset] = useState(true);
-const [profileData, setProfileData] = useState(null);
-const [msg, setMsg] = useState("");
-const [auth, setAuth] = useState(true);
-const [loggedin, setLoggedin] = useState(false);
-const [change, setChange] = useState(false);
+  const [profileset, setprofileset] = useState(true);
+  const [profileData, setProfileData] = useState(null);
+  const [msg, setMsg] = useState("");
+  const [auth, setAuth] = useState(true);
+  const [loggedin, setLoggedin] = useState(false);
+  const [change, setChange] = useState(false);
+  const [nftMinting, setNftMinting] = useState();
 
   const navigate = (path) => {
     window.location.href = path;
@@ -96,10 +95,10 @@ const [change, setChange] = useState(false);
       formDataObj.append("profilePictureUrl", formData.profilePictureUrl);
 
       // Convert FormData to JavaScript Object
-    const formDataObject = {};
-    formDataObj.forEach((value, key) => {
-      formDataObject[key] = value;
-    });
+      const formDataObject = {};
+      formDataObj.forEach((value, key) => {
+        formDataObject[key] = value;
+      });
 
       // Convert JavaScript Object to JSON string
       const jsonData = JSON.stringify(formDataObject);
@@ -130,183 +129,53 @@ const [change, setChange] = useState(false);
     }
   };
 
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      setLoading(true);
-      try {
-        const auth = Cookies.get("platform_token");
-
-        const response = await axios.get(
-          `${REACT_APP_GATEWAY_URL}api/v1.0/profile`,
-          {
-            headers: {
-              Accept: "application/json, text/plain, */*",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${auth}`,
-            },
-          }
-        );
-
-        if (response.status === 200) {
-          setProfileData(response.data.payload);
-          if(!response.data.payload.email)
-          {
-            setauth(false);
-          }
-          console.log(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfileData();
-  }, [profileset]);
-
-  const gotodashboard = async () => {
-    navigate("/view-my-reviews");
-  };
-
   const handleProfile = () => {
     setMsg("");
     setprofileset(true);
   };
 
-
-  const handleLoginClick = () => {
-    const state = Math.random().toString(36).substring(7);
-    const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=openid%20profile%20email&state=${state}`;
-    window.location.href = authUrl;
-  };
-
-  const parseAuthorizationCode = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-  
-    if (code) {
-      localStorage.setItem("code",code)
-      exchangeCodeForToken(code);
-      console.log("code", code)
-    }
-  };
-  
-  const exchangeCodeForToken = async (code) => {
-    const tokenEndpoint = 'https://www.googleapis.com/oauth2/v4/token';
-  
-    const tokenRequestBody = {
-      code,
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      redirect_uri: REDIRECT_URI,
-      grant_type: 'authorization_code',
-    };
-  
-    try {
-      const response = await fetch(tokenEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(tokenRequestBody).toString(),
-      });
-  
-      const tokenData = await response.json();
-  
-      // Assuming id_token is present in tokenData
-      const idToken = tokenData.id_token;
-  
-      // setpage("googlewalletboth");
-
-      // Use idToken in another API call
-      await getgoogledata(idToken);
-  
-      handleTokenData(tokenData);
-      console.log("token", tokenData);
-    } catch (error) {
-      console.error('Token exchange error:', error);
-    }
-  };
-  
-  const getgoogledata = async (idToken) => {
-  
-    const auth = Cookies.get("platform_token");
-  
-    const obj = {"idToken":idToken}
-    const jsonData = JSON.stringify(obj);
-  
-    try {
-      const response = await axios.post(`${REACT_APP_GATEWAY_URL}api/v1.0/account/auth-google`, {
-       ...obj
-      },{headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth}`,
-      }});
-  
-      const responseData = await response.data;
-      // Cookies.set("google_token", responseData.payload.token, { expires: 7 });
-      // Cookies.set("platform_userid", responseData.payload.userId, { expires: 7 });
-      console.log('Another API call response:', responseData);
-    } catch (error) {
-      console.error('Another API call error:', error);
-    }
-  };
-  
-  const handleTokenData = (tokenData) => {
-    window.history.replaceState({}, document.title, window.location.pathname);
-  };
-  
-  
-  useEffect(() => {
-    parseAuthorizationCode();
-  }, []);
-
-  useEffect(() => {
-      const handleConnectWallet = async () => {
-        const loggedin = Cookies.get("platform_token");
-        // const auth = Cookies.get("google_token");
-        if (loggedin) {
-          setloggedin(true);
-        }
-      };
-      handleConnectWallet();
-    }, [change]);
-
-    useEffect(() => {
-      const timeoutId = setTimeout(() => {
-        setMsg('');
-      }, 3000); // 5 seconds in milliseconds
-  
-      return () => clearTimeout(timeoutId);
-    }, [msg]);
-  
-
   return (
-    <div   
-    >
+    <div>
       <Header />
       <section className="">
         <div className="mx-auto">
           <div className="w-full mx-auto text-left w-full md:text-center">
-        
-        <div className="flex">
-        {msg == "success" && (
-                      <div className="text-center mx-auto">
-                      <div className="">
-                        <div
-                          style={button}
-                          className="flex gap-1 px-4 py-3 text-xs text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
-                        >
-                          {/* <Image src={tick} alt="" className="w-4 h-4"/> */}
-                          Changes Saved
-                        </div>
-                      </div>
+            <div className="flex">
+              {msg == "success" && (
+                <div className="text-center mx-auto">
+                  <div className="">
+                    <div
+                      style={button}
+                      className="flex gap-1 px-4 py-3 text-xs text-black font-semibold rounded-lg w-full sm:mb-0 hover:bg-green-200 focus:ring focus:ring-green-300 focus:ring-opacity-80"
+                    >
+                      {/* <Image src={tick} alt="" className="w-4 h-4"/> */}
+                      Changes Saved
                     </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            {nftMinting == true && (
+              <div
+                style={{ backgroundColor: "#2229447A" }}
+                className="flex overflow-y-auto overflow-x-hidden fixed inset-0 z-50 justify-center items-center w-full max-h-full"
+                id="popupmodal"
+              >
+                <div className="relative flex justify-center flex-col items-center p-4 lg:w-2/3 w-full bg-white  rounded-lg shadow h-2/3  ">
+                  <div className="p-4 md:p-5 space-y-4">
+                    <p className="text-3xl text-center font-bold">Mint a NFT</p>
+                    <p className="text-md text-center">
+                      Press button to mint nft
+                    </p>
+                  </div>
+                  <div className="flex items-center p-4 md:p-5 rounded-b mx-auto justify-center mb-4">
+                    <button className=" bg-blue-500 px-4 py-2 rounded-lg text-white font-bold">
+                      Mint User NFT
+                    </button>
+                  </div>
+                </div>
+              </div>
             )}
-        </div>
-            
 
             {!profileset && (
               <section className="rounded-xl bg-gray-100 min-h-screen">
@@ -379,8 +248,6 @@ const [change, setChange] = useState(false);
                                 // required
                               />
                             </div>
-
-                            
                           </div>
 
                           <div className="lg:flex md:flex justify-between gap-4">
@@ -412,41 +279,39 @@ const [change, setChange] = useState(false);
                           </div>
 
                           <div className="mb-10 w-full">
-                              <input
-                                type="text"
-                                id="country"
-                                // style={border}
-                                className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Bio"
-                                value={formData.country}
-                                onChange={handleInputChange}
-                                // required
-                              />
-                            </div>
+                            <input
+                              type="text"
+                              id="country"
+                              // style={border}
+                              className="shadow border appearance-none rounded w-full py-4 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline"
+                              placeholder="Bio"
+                              value={formData.country}
+                              onChange={handleInputChange}
+                              // required
+                            />
+                          </div>
 
                           <div className="text-center pt-10 w-2/3 mr-auto flex gap-4">
-                          <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
-                          <button
-                            onClick={() => setprofileset(true)}
-                            className="border border-blue-500 px-4 py-3 mb-2 text-sm text-blue-500 font-semibold rounded-lg w-full sm:mb-0"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                        <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
-                          <button
-                            type="submit"
-                            value="submit"
-                            className="bg-blue-500 px-4 py-3 mb-2 text-sm text-white font-semibold rounded-lg w-full sm:mb-0"
-                          >
-                            Set Your Profile
-                          </button>
+                            <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
+                              <button
+                                onClick={() => setprofileset(true)}
+                                className="border border-blue-500 px-4 py-3 mb-2 text-sm text-blue-500 font-semibold rounded-lg w-full sm:mb-0"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                            <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
+                              <button
+                                type="submit"
+                                value="submit"
+                                className="bg-blue-500 px-4 py-3 mb-2 text-sm text-white font-semibold rounded-lg w-full sm:mb-0"
+                              >
+                                Set Your Profile
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-
-                        </div>
-                      </div>
-                      
                     </form>
 
                     {loading && (
@@ -496,9 +361,8 @@ const [change, setChange] = useState(false);
 
             {profileset && (
               <>
-
-                <section className="pb-0 rounded-xl"> 
-                <img src="/bg7.webp" className="w-full h-80"/>                 
+                <section className="pb-0 rounded-xl">
+                  <img src="/bg7.webp" className="w-full h-80" />
                   <div className="px-24 mx-auto rounded-xl">
                     <div className="w-full mx-auto text-left">
                       <form id="myForm" className="rounded pt-10">
@@ -507,15 +371,15 @@ const [change, setChange] = useState(false);
                             <div className="flex items-center mb-10 justify-center">
                               {profileData?.profilePictureUrl ? (
                                 <div className="h-52 w-52">
-                                <img
-                                  alt="alt"
-                                  src={`${"https://cloudflare-ipfs.com/ipfs"}/${removePrefix(
-                                    profileData?.profilePictureUrl
-                                  )}`}
-                                  className="rounded-2xl"
-                                //   width="170"
-                                //   height="170"
-                                />
+                                  <img
+                                    alt="alt"
+                                    src={`${"https://cloudflare-ipfs.com/ipfs"}/${removePrefix(
+                                      profileData?.profilePictureUrl
+                                    )}`}
+                                    className="rounded-2xl"
+                                    //   width="170"
+                                    //   height="170"
+                                  />
                                 </div>
                               ) : (
                                 <div className="h-52 w-52 ring-offset-2 ring-1 ring-black bg-gray-200">
@@ -532,27 +396,33 @@ const [change, setChange] = useState(false);
                             </div>
                           </div>
 
-                          <div className="lg:w-3/4 md:w-3/4">
+                          <div className="lg:w-full md:w-3/4">
                             <div className="lg:flex md:flex justify-between gap-4">
                               <div
                                 // style={border}
                                 className="text-black text-2xl font-bold mb-10"
                               >
-                                {profileData?.name
-                                  ? profileData?.name
-                                  : "Name"}
+                                {profileData?.name ? profileData?.name : "Name"}
                               </div>
 
-                              <div className="text-center pt-0 ml-auto">
-                          <div className="">
-                            <button
-                              onClick={() => setprofileset(false)}
-                              className="bg-blue-500 px-4 py-3 mb-2 text-sm text-white font-semibold rounded-lg w-full sm:mb-0"
-                            >
-                              Edit Profile
-                            </button>
-                          </div>
-                        </div>
+                              <div className="text-center pt-0 ml-auto flex h-16">
+                                <button
+                                  onClick={() => setprofileset(false)}
+                                  className="bg-blue-500 px-4  text-sm text-white font-semibold rounded-lg w-full sm:mb-0 m-2"
+                                >
+                                  Edit Profile
+                                </button>
+                                <button
+                                  // onClick={() => setprofileset(false)}
+                                  className="bg-blue-500 px-4 text-sm text-white font-semibold rounded-lg w-full sm:mb-0 m-2"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setNftMinting(true);
+                                  }}
+                                >
+                                  Mint NFT
+                                </button>
+                              </div>
 
                               {/* <div
                                 style={border}
@@ -569,66 +439,64 @@ const [change, setChange] = useState(false);
                                 // style={border}
                                 className="text-black text-lg mb-10"
                               >
-                                {profileData?.name
-                                  ? profileData?.name
-                                  : "Bio"}
+                                {profileData?.name ? profileData?.name : "Bio"}
                               </div>
                             </div>
 
                             <div className="font-bold mb-2">Social Handles</div>
 
                             {/* <div className="lg:flex md:flex justify-between gap-4"> */}
-                              <div
-                                // style={border}
-                                className="text-black text-md mb-2"
-                              >
-                                Instagram : {profileData?.discord
-                                  ? profileData?.discord
-                                  : "Instagram Link"}
-                              </div>
+                            <div
+                              // style={border}
+                              className="text-black text-md mb-2"
+                            >
+                              Instagram :{" "}
+                              {profileData?.discord
+                                ? profileData?.discord
+                                : "Instagram Link"}
+                            </div>
 
-                              <div
-                                // style={border}
-                                className="text-black text-md mb-10"
-                              >
-                                Twitter : {profileData?.twitter
-                                  ? profileData?.twitter
-                                  : "Twitter Link"}
-                              </div>
+                            <div
+                              // style={border}
+                              className="text-black text-md mb-10"
+                            >
+                              Twitter :{" "}
+                              {profileData?.twitter
+                                ? profileData?.twitter
+                                : "Twitter Link"}
+                            </div>
                             {/* </div> */}
                           </div>
                         </div>
-
-                        
                       </form>
 
-      {loading && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            background: 'rgba(255, 255, 255, 0.7)',
-            zIndex: 9999,
-          }}
-        >
-          <div
-            style={{
-              width: '80px',
-              height: '80px',
-              border: '8px solid #f3f3f3',
-              borderTop: '8px solid #3498db',
-              borderRadius: '50%',
-              animation: 'spin 1s linear infinite',
-            }}
-          ></div>
-        </div>
-      )}
+                      {loading && (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            background: "rgba(255, 255, 255, 0.7)",
+                            zIndex: 9999,
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "80px",
+                              height: "80px",
+                              border: "8px solid #f3f3f3",
+                              borderTop: "8px solid #3498db",
+                              borderRadius: "50%",
+                              animation: "spin 1s linear infinite",
+                            }}
+                          ></div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </section>
