@@ -40,6 +40,25 @@ export default function Home() {
     //     </div>
     //   </div>
     // </nav>
+    <div>
     <Header/>
+    <div
+  className="flex items-center justify-center h-screen"
+  style={{
+    backgroundImage: "url('/back.jpg')",
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }}
+>
+  <div className="text-4xl text-white font-bold w-1/2 text-center">
+    <div>The Reputation-Driven Social and Professional Networking dApp</div>
+    <div className="text-lg text-gray-300 text-center font-semibold mt-4">A unique dApp merging DeFi and social networking with Aave's GHO, 
+    enabling influencers to monetize reputation through NFTs and interactive experiences, backed by a robust Proof of Reputation system.
+      </div>
+    </div>
+</div>
+
+<div className="text-4xl text-black font-bold text-center mt-10">Features</div>
+    </div>
   );
 }
