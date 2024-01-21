@@ -15,13 +15,23 @@ export default function Header() {
               Hive
             </span>
           </a>
-          <a
-            href="/login"
-            className="block py-2 px-3 text-white bg-blue-500 rounded-xl text-sm"
-            aria-current="page"
-          >
-            Launch App
-          </a>
+          {address ? (
+            <a
+              href="/explore"
+              className="block py-2 px-3 text-white bg-blue-500 rounded-xl text-sm"
+              aria-current="page"
+            >
+              Explore
+            </a>
+          ) : (
+            <a
+              href="/login"
+              className="block py-2 px-3 text-white bg-blue-500 rounded-xl text-sm"
+              aria-current="page"
+            >
+              Launch
+            </a>
+          )}
         </div>
 
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
