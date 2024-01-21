@@ -58,7 +58,191 @@ export default function Home() {
     </div>
 </div>
 
-<div className="text-4xl text-black font-bold text-center mt-10">Features</div>
+<div className="text-4xl text-black font-bold text-center mt-20">Features</div>
+<div className="my-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 max-w-6xl mx-auto">
+
+  {/* Feature 1 */}
+  <div className="p-10 block border border-gray-800 p-8 text-black" style={{ backgroundColor: '#CCCCFF', position: 'relative', borderRadius: '30px' }}>
+    <style>
+      {`.inner-shadow {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            box-shadow: inset -10px -10px 60px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 0;
+            pointer-events: none;
+          }`}
+    </style>
+    <div className="inner-shadow"></div>
+    <div className="flex gap-4 mt-2">
+      {/* <div>
+        <img src="images/feature1.png" className="w-16 h-10" alt="Feature 1" />
+      </div> */}
+      <div>
+        <h2 className="text-xl font-bold uppercase">Proof of Reputation System</h2>
+        <p className="mt-2 text-md font-semibold">
+        Utilize a unique scoring algorithm to index social media activity and assign reputation scores.
+Users start with a zero score and build their reputation on the platform.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Feature 2 */}
+  <div className="p-10 block border border-gray-800 p-8 text-black" style={{ backgroundColor: '#AFDBF5', position: 'relative', borderRadius: '30px' }}>
+    <style>
+      {`.inner-shadow {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            box-shadow: inset -10px -10px 60px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            pointer-events: none;
+          }`}
+    </style>
+    <div className="inner-shadow"></div>
+    <div className="flex gap-4 mt-2">
+      {/* <div>
+        <img src="images/feature2.png" className="w-16 h-9" alt="Feature 2" />
+      </div> */}
+      <div>
+        <h2 className="text-xl font-bold uppercase">Service Marketplace</h2>
+        <p className="mt-2 text-md font-semibold">
+        Users can sell or offer services, such as one-on-one meetings, consultations, or crowdfunding campaigns.
+Transactions are facilitated through the minting and auctioning of utility NFTs representing each service or experience.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Feature 3 */}
+  <div className="p-10 block border border-gray-800 p-8 text-black" style={{ backgroundColor: '#AFDBF5', position: 'relative', borderRadius: '30px' }}>
+    <style>
+      {`.inner-shadow {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            box-shadow: inset -10px -10px 60px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            pointer-events: none;
+          }`}
+    </style>
+    <div className="inner-shadow"></div>
+    <div className="flex gap-4 mt-2">
+      {/* <div>
+        <img src="images/feature3.png" className="w-16 h-8" alt="Feature 3" />
+      </div> */}
+      <div>
+        <h2 className="text-xl font-bold uppercase">Commission Model</h2>
+        <p className="mt-2 text-md font-semibold">
+        Hive takes a commission on each sale or transaction, generating revenue for the platform's maintenance and development.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Feature 4 */}
+  <div className="p-10 block border border-gray-800 p-8 text-black" style={{ backgroundColor: '#CCCCFF', position: 'relative', borderRadius: '30px' }}>
+    <style>
+      {`.inner-shadow {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            box-shadow: inset -10px -10px 60px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            pointer-events: none;
+          }`}
+    </style>
+    <div className="inner-shadow"></div>
+    <div className="flex gap-4 mt-2">
+      {/* <div>
+        <img src="images/feature4.png" className="w-16 h-8" alt="Feature 4" />
+      </div> */}
+      <div>
+        <h2 className="text-xl font-bold uppercase">NFT Integration</h2>
+        <p className="mt-2 text-md font-semibold">
+        NFTs serve as access tokens for services, can be traded, or used as collateral for loans.
+The value of NFTs is determined by market reputation and demand, allowing for dynamic pricing.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Feature 5 */}
+  <div className="p-10 block border border-gray-800 p-8 text-black" style={{ backgroundColor: '#CCCCFF', position: 'relative', borderRadius: '30px' }}>
+    <style>
+      {`.inner-shadow {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            box-shadow: inset -10px -10px 60px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            pointer-events: none;
+          }`}
+    </style>
+    <div className="inner-shadow"></div>
+    <div className="flex gap-4 mt-2">
+      {/* <div>
+        <img src="images/feature5.png" className="w-12 h-9" alt="Feature 5" />
+      </div> */}
+      <div>
+        <h2 className="text-xl font-bold uppercase">Lottery System</h2>
+        <p className="mt-2 text-md font-semibold">
+        Users can join lotteries via NFTs.
+
+High-Risk: Lower entry, only the winner benefits.
+
+Safer: Higher entry, participants get their investment back, and the winner gets extra from an Aave vault.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Feature 6 */}
+  <div className="p-10 block border border-gray-800 p-8 text-black" style={{ backgroundColor: '#AFDBF5', position: 'relative', borderRadius: '30px' }}>
+    <style>
+      {`.inner-shadow {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            box-shadow: inset -10px -10px 60px 0 rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            pointer-events: none;
+          }`}
+    </style>
+    <div className="inner-shadow"></div>
+    <div className="flex gap-4 mt-2">
+      {/* <div>
+        <img src="images/feature5.png" className="w-12 h-9" alt="Feature 5" />
+      </div> */}
+      <div>
+        <h2 className="text-xl font-bold uppercase">Aave GHO and Facilitator Integration</h2>
+        <p className="mt-2 text-md font-semibold">
+        Incorporate Aave GHO for liquidity and facilitator mechanisms for minting GHO.
+Explore strategic goals like peg stability and treasury management through the facilitator model.
+        </p>
+      </div>
+    </div>
+</div>
+</div>
     </div>
   );
 }
