@@ -162,6 +162,27 @@ const Profile = () => {
                 id="popupmodal"
               >
                 <div className="relative flex justify-center flex-col items-center p-4 lg:w-2/3 w-full bg-white  rounded-lg shadow h-2/3  ">
+                  <button
+                    onClick={() => {
+                      setNftMinting(false);
+                    }}
+                    className="absolute top-4 right-4 text-gray-500 cursor-pointer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      className="h-6 w-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
                   <div className="p-4 md:p-5 space-y-4">
                     <p className="text-3xl text-center font-bold">Mint a NFT</p>
                     <p className="text-md text-center">
