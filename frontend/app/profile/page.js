@@ -5,6 +5,7 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { removePrefix } from "../../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
 import Image from 'next/image';
+import Header from '../../components/header';
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL;
@@ -283,9 +284,9 @@ const [change, setChange] = useState(false);
   
 
   return (
-    <div
-      
+    <div   
     >
+      <Header />
       <section className="">
         <div className="mx-auto">
           <div className="w-full mx-auto text-left w-full md:text-center">

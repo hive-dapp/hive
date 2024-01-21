@@ -5,6 +5,7 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { removePrefix } from "../../modules/Utils/ipfsUtil";
 import { NFTStorage } from "nft.storage";
 import Image from 'next/image';
+import Header from '../../components/header';
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFFODE2RTA3RjBFYTg4MkI3Q0I0MDQ2QTg4NENDQ0Q0MjA4NEU3QTgiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3MzI0NTEzNDc3MywibmFtZSI6Im5mdCJ9.vP9_nN3dQHIkN9cVQH5KvCLNHRk3M2ZO4x2G99smofw"
 const client = new NFTStorage({ token: API_KEY });
 const REACT_APP_GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL;
@@ -283,9 +284,9 @@ const [change, setChange] = useState(false);
   
 
   return (
-    <div
-      
+    <div 
     >
+      <Header />
       <section className="">
         <div className="px-10 mx-auto">
           <div className="w-full mx-auto text-left w-full md:text-center">
@@ -306,12 +307,12 @@ const [change, setChange] = useState(false);
             )}
         </div>
             
-              <section className="pb-10 rounded-xl" style={bg}>
+              <section className="rounded-xl" style={bg}>
                 <div className="px-20 mx-auto rounded-xl">
-                  <div className="w-full mx-auto text-left py-10">
+                  <div className="w-full mx-auto text-left">
                     <form
                       id="myForm"
-                      className="rounded pt-10"
+                      className="rounded"
                       onSubmit={handleSubmit}
                     >
                       <div className="lg:flex md:flex justify-between">
@@ -331,7 +332,8 @@ const [change, setChange] = useState(false);
                         <div className="mb-10 lg:w-1/2 md:w-1/2 mt-10">
                         
                           <div className="lg:flex md:flex justify-between gap-4">
-                            <div className="mb-10 w-1/2">
+                            <div className="w-2/3">
+                            <div className="mb-4 w-full">
                               <input
                                 type="text"
                                 id="name"
@@ -344,22 +346,7 @@ const [change, setChange] = useState(false);
                               />
                             </div>
 
-                            <div className="mb-10 w-1/2">
-                              <input
-                                type="text"
-                                id="country"
-                                style={border}
-                                className="shadow border appearance-none rounded w-full py-4 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Bio"
-                                value={formData.country}
-                                onChange={handleInputChange}
-                                // required
-                              />
-                            </div>
-                          </div>
-
-                          <div className="lg:flex md:flex justify-between gap-4">
-                            <div className="mb-0 w-1/2">
+                            <div className="mb-4 w-full">
                               <input
                                 type="text"
                                 id="discord"
@@ -372,7 +359,7 @@ const [change, setChange] = useState(false);
                               />
                             </div>
 
-                            <div className="mb-0 w-1/2">
+                          <div className="mb-4 w-full">
                               <input
                                 type="text"
                                 id="twitter"
@@ -384,9 +371,10 @@ const [change, setChange] = useState(false);
                                 // required
                               />
                             </div>
-                          </div>
 
-                          <div className="h-52 w-52 bg-gray-200">
+                            </div>
+                            
+                            <div className="h-48 w-48 bg-gray-200">
                             {formData.profilePictureUrl ? (
                               <img
                                 alt="alt"
@@ -400,7 +388,7 @@ const [change, setChange] = useState(false);
                             ) : (
                               <label
                                 htmlFor="upload"
-                                className="flex flex-col items-center gap-2 cursor-pointer mt-10"
+                                className="flex flex-col items-center gap-2 cursor-pointer mt-0"
                               >
                                 <input
                                   id="upload"
@@ -411,7 +399,7 @@ const [change, setChange] = useState(false);
                                 />
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
-                                  className="h-10 w-10 fill-white stroke-indigo-500 mt-20"
+                                  className="h-8 w-8 fill-white stroke-indigo-500 mt-20"
                                   viewBox="0 0 24 24"
                                   stroke="currentColor"
                                   stroke-width="2"
@@ -425,6 +413,23 @@ const [change, setChange] = useState(false);
                               </label>
                             )}
                           </div>
+
+                          </div>
+
+
+                          <div className="mb-4 w-full">
+                              <textarea
+                                type="text"
+                                id="country"
+                                style={border}
+                                rows={4}
+                                className="shadow border appearance-none rounded w-full py-4 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                                placeholder="Bio"
+                                value={formData.country}
+                                onChange={handleInputChange}
+                                // required
+                              ></textarea>
+                            </div>
 
                           <div className="text-center pt-10 w-1/2">
                         <div className="pb-10 space-x-0 md:space-x-2 md:mb-8">
